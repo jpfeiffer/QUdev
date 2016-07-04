@@ -83,7 +83,7 @@ QUdevDeviceList QUdevPrivate::getUDevDevicesForSubsystem(const QString &strSubSy
     if(strSubSystem.isEmpty()) return lDevices;
 
     //get subsystem enumerator
-    udev_enumerate_add_match_subsystem(enumerate, strSubSystem.toAscii().constData());
+    udev_enumerate_add_match_subsystem(enumerate, strSubSystem.toUtf8().constData());
     //perform sysfs scanning
     udev_enumerate_scan_devices(enumerate);
     devices = udev_enumerate_get_list_entry(enumerate);
@@ -94,7 +94,7 @@ QUdevDeviceList QUdevPrivate::getUDevDevicesForSubsystem(const QString &strSubSy
         QUdevDevice udDev;
 
         //create udev device for the sysfs path returned
-        udDev.m_strSysfsPath = QString::fromLatin1(udev_list_entry_get_name(dev_list_entry));        
+        udDev.m_strSysfsPath = QString::fromLatin1(udev_list_entry_get_name(dev_list_entry));
         dev = udev_device_new_from_syspath(m_pUdev, udDev.m_strSysfsPath.toLatin1().constData());
 
         //filter the correct device types, ignored if empty device type is specified
