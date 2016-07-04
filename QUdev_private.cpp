@@ -83,7 +83,7 @@ QUdevDeviceList QUdevPrivate::getUDevDevicesForSubsystem(const QString &strSubSy
     if(strSubSystem.isEmpty()) return lDevices;
 
     //get subsystem enumerator
-    udev_enumerate_add_match_subsystem(enumerate, strSubSystem.toAscii().constData());
+    udev_enumerate_add_match_subsystem(enumerate, strSubSystem.toLatin1().constData());
     //perform sysfs scanning
     udev_enumerate_scan_devices(enumerate);
     devices = udev_enumerate_get_list_entry(enumerate);
